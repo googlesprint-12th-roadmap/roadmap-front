@@ -1,7 +1,10 @@
-const { default: React } = require('react');
-const { testRoadmapData } = require('../../__test__/fakeRoadmapData');
+import React from 'react';
+import { testRoadmapData } from '../../__test__/fakeRoadmapData';
 
 const RoadmapContainer = () => {
   const data = testRoadmapData();
-  return <></>;
+  console.log(data);
+  return <>test</>;
 };
+
+export default RoadmapContainer;

@@ -1,9 +1,10 @@
-const { faker } = require('@faker-js/faker');
+import { faker } from '@faker-js/faker';
 
 /**
  * @type {(type?:import('../types.d').NodeType,id?:number)=>import('../types.d').Node}
  * */
-const fakeRoadmapData = (type, id) => {
+export const fakeRoadmapData = (type, id) => {
+  console.log(Date.now());
   const data = {
     id: id ?? Date.now(),
     url: faker.internet.url(),
@@ -17,6 +18,7 @@ const fakeRoadmapData = (type, id) => {
     children: [],
     parent: 0,
   };
+  console.log(data);
   return data;
 };
 
@@ -51,7 +53,21 @@ export const testRoadmapData = () => {
   const main1_2_2_sub2 = fakeRoadmapData('sub');
   const main1_2_2_sub3 = fakeRoadmapData('sub');
   setNodeChildren(main1_2_2, main1_2_2_sub1, main1_2_2_sub2, main1_2_2_sub3);
-  const list = /**@type {import('../types.d').Node[]} */ ([rootNode]);
+  const list = [
+    rootNode,
+    rootNode_sub1,
+    rootNode_sub2,
+    main1_1,
+    main1_1_sub1,
+    main1_1_sub2,
+    main1_1_sub3,
+    main1_2,
+    main1_2_2,
+    main1_2_2_sub1,
+    main1_2_2_sub2,
+    main1_2_2_sub3,
+    main1_3,
+  ];
   return {
     rootId: 1,
     list,

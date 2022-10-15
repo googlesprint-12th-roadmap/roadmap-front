@@ -19,7 +19,7 @@ export const HeaderTitle = styled.h1`
   padding: 1px 4px;
   font-size: 1.5rem;
 `;
-export const HeaderButton = styled.button`
+export const HeaderButton = styled.a`
   box-sizing: border-box;
   font-size: 1.5rem;
   padding: 1px 4px;

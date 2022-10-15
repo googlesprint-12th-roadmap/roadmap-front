@@ -6,6 +6,7 @@ import {
   HeaderTitle,
   Wrapper,
 } from './index.style';
+import RoadMap from './Roadmap';
 import text from './text.json';
 const Result = () => {
   return (
@@ -15,7 +16,7 @@ const Result = () => {
         <HeaderButton>{text['header.button.share']}</HeaderButton>
       </Header>
       <Content>
-        
+        <RoadMap />
       </Content>
     </Wrapper>
   );
