@@ -84,7 +84,7 @@ $ npm run build
 
 ## See Also
 
-- [Wiki](https://github.com/googlesprint-12th-roadmap/roadmap-front/wiki/%F0%9F%A7%91%E2%80%8D%F0%9F%A4%9D%E2%80%8D%F0%9F%A7%91-%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C-%EB%A3%B0)
+- [Wiki](https://github.com/googlesprint-12th-roadmap/roadmap-front/wiki)
 
 ## LICENSE
 
