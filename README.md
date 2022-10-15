@@ -46,7 +46,6 @@
 │ └─vite.svg (파비콘)
 ├─src
 │ ├─assets (이미지, 폰트 등)
-│ ├─atoms (리액트 라우터, styled-components)
 │ ├─components (컴포넌트 like view)
 │ ├─pages (페이지)
 │ ├─hooks (커스텀 훅)
