@@ -4,7 +4,6 @@ import { faker } from '@faker-js/faker';
  * @type {(type?:import('../types.d').NodeType,id?:number)=>import('../types.d').Node}
  * */
 export const fakeRoadmapData = (type, id) => {
-  console.log(Date.now());
   const data = {
     id: id ?? Date.now(),
     url: faker.internet.url(),
@@ -27,6 +26,7 @@ export const fakeRoadmapData = (type, id) => {
  * */
 const setNodeChildren = (parent, ...children) => {
   parent.children = children.map((d) => d.id);
+  children.forEach((c) => (c.parent = parent.id));
 };
 
 /**
