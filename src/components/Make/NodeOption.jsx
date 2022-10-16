@@ -9,7 +9,7 @@ import {
 
 const NodeOption = () => {
   const [currentTitle, setCurrentTitle] = useState('');
-  const [currentType, setCurrentType] = useState('MAIN');
+  const [currentType, setCurrentType] = useState('');
   const [currentUrl, setCurrentUrl] = useState('');
   const [currentDesc, setCurrentDesc] = useState('');
 
@@ -20,7 +20,12 @@ const NodeOption = () => {
   );
 
   useEffect(() => {
-    if (currentSelectedId !== -1) {
+    if (currentSelectedId === -1) {
+      setCurrentTitle('');
+      setCurrentUrl('');
+      setCurrentDesc('');
+      setCurrentType('');
+    } else {
       const currentNode = nodeList.find(
         (item) => item.idx === currentSelectedId,
       );
@@ -33,9 +38,13 @@ const NodeOption = () => {
     }
   }, [currentSelectedId]);
 
+  // 노드 옵션 수정 함수
   const handleNodeUpdate = () => {
     if (!currentTitle.length) {
       return alert('노드의 제목을 입력해주세요.');
+    }
+    if (currentSelectedId === -1) {
+      return alert('노드를 선택해주세요.');
     }
     const newNodeList = nodeList.map((item) => {
       if (item.idx === currentSelectedId) {
@@ -68,8 +77,63 @@ const NodeOption = () => {
     setDepthList(newDepthList);
   };
 
-  const handleNodeDelete = () => {};
+  // 선택한 노드 삭제 함수
+  // 추후 더 간결한 코드로 수정 필요
+  const handleNodeDelete = () => {
+    if (currentSelectedId === -1) {
+      return alert('노드를 선택해주세요.');
+    }
+    const SelectedNode = nodeList.find(
+      (item) => item.idx === currentSelectedId,
+    );
+    if (SelectedNode.idx === SelectedNode.parent) {
+      return alert('루트 노드는 삭제할 수 없습니다.');
+    }
 
+    // 연쇄적인 children을 계속 탐색하는 로직
+    const toBeDeleted = [];
+    let queue = [];
+    queue.push(currentSelectedId);
+
+    while (queue.length) {
+      let currentId = queue.shift();
+      let currentNode = nodeList.find((item) => item.idx === currentId);
+      queue = [...queue, ...currentNode.children];
+      toBeDeleted.push(currentId);
+    }
+
+    // 부모 노드의 children 배열 수정
+    const parentId = SelectedNode.parent;
+
+    const newNodeList = nodeList
+      .filter((item) => !toBeDeleted.includes(item.idx))
+      .map((x) => {
+        if (x.idx === parentId) {
+          const newChildren = x.children.filter((y) => y !== currentSelectedId);
+          return { ...x, children: newChildren };
+        }
+        return x;
+      });
+
+    setNodeList(newNodeList);
+    const newDepthList = depthList.map((item1) =>
+      item1
+        .filter((item2) => !toBeDeleted.includes(item2.idx))
+        .map((x) => {
+          if (x.idx === parentId) {
+            const newChildren = x.children.filter(
+              (y) => y !== currentSelectedId,
+            );
+            return { ...x, children: newChildren };
+          }
+          return x;
+        }),
+    );
+    setDepthList(newDepthList);
+  };
+
+  // TODO
+  // 로드맵 저장 기능
   const handleRodeMapSubmit = () => {};
 
   return (
@@ -121,7 +185,7 @@ const NodeOption = () => {
       <Options>
         <Title>Options</Title>
         <ContentWrapper>
-          <Button>선택한 노드 삭제</Button>
+          <Button onClick={handleNodeDelete}>선택한 노드 삭제</Button>
           <Button>미리보기</Button>
           <Button>로드맵 저장</Button>
         </ContentWrapper>
