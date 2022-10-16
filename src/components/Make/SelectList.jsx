@@ -31,27 +31,27 @@ const SelectList = ({ data, depth }) => {
   const addNodeInputRef = useRef(null);
 
   const handleClickSelectItem = useCallback(
-    (id, index) => {
+    (idx, index) => {
       const tempDepthList = _.cloneDeep(depthList);
       setCurrentSelect(depth);
 
-      if (data[index].id === currentCheckId) {
+      if (data[index].idx === currentCheckId) {
         setCurrentCheckId(-1);
         setEmptyNode(false);
         setDepthList([...tempDepthList.slice(0, depth + 1)]);
         return;
       }
-      setCurrentCheckId(id);
+      setCurrentCheckId(idx);
 
       if (data[index].children.length === 0) {
         setEmptyNode(true);
-        setLastId(id);
+        setLastId(idx);
         setDepthList([...tempDepthList.slice(0, depth + 1)]);
         return;
       }
 
       const tempCurrenDepth = [...data[index].children].map(
-        (id) => nodeList.filter((item) => item.id === id)[0],
+        (idx) => nodeList.filter((item) => item.idx === idx)[0],
       );
       setEmptyNode(false);
 
@@ -69,7 +69,7 @@ const SelectList = ({ data, depth }) => {
     }
 
     const newNode = {
-      id: new Date().getTime(),
+      idx: new Date().getTime(),
       url: '',
       desc: '',
       type: 'MAIN',
@@ -82,19 +82,20 @@ const SelectList = ({ data, depth }) => {
     setEditing(false);
     setNodeList([
       ...nodeList.map((node) =>
-        node.id === newNode.parent
-          ? { ...node, children: [...node.children, newNode.id] }
+        node.idx === newNode.parent
+          ? { ...node, children: [...node.children, newNode.idx] }
           : node,
       ),
       newNode,
     ]);
+    console.log(newNode);
 
     let tempDepthList = _.cloneDeep(depthList);
 
     tempDepthList[depth] = [...data, newNode];
-    const depthIds = tempDepthList[depth].map((node) => node.id);
+    const depthIds = tempDepthList[depth].map((node) => node.idx);
     const found = tempDepthList[depth - 1].map((node) =>
-      node.id === data[0].parent ? { ...node, children: depthIds } : node,
+      node.idx === data[0].parent ? { ...node, children: depthIds } : node,
     );
     tempDepthList[depth - 1] = found;
 
@@ -114,9 +115,9 @@ const SelectList = ({ data, depth }) => {
             data.map((item, index) => {
               return (
                 <SelectItem
-                  key={item.id + item.title}
+                  key={item.idx + item.title}
                   data={item}
-                  check={currentCheckId === item.id}
+                  check={currentCheckId === item.idx}
                   clickFunc={handleClickSelectItem}
                   index={index}
                 />

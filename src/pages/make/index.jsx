@@ -111,7 +111,7 @@ const Make = () => {
     const context = {
       name: title,
       nodes: nodeList,
-      rootIdx: nodeList[0].id,
+      rootIdx: nodeList[0].idx,
     };
     console.log(context);
     saveRoadmap.mutate(context, {
