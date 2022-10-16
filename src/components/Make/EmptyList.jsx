@@ -31,10 +31,10 @@ const EmptyList = () => {
     }
 
     let newNode = {
-      id: new Date().getTime(),
+      idx: new Date().getTime(),
       url: '',
       desc: '',
-      type: 'main',
+      type: 'MAIN',
       title: newNodeText,
       children: [],
       parent: lastId,
@@ -43,7 +43,7 @@ const EmptyList = () => {
     let tempDepthList = _.cloneDeep(depthList);
 
     if (nodeList.length === 0) {
-      newNode = { ...newNode, parent: 'root' };
+      newNode = { ...newNode, parent: new Date().getTime() };
       tempDepthList = [[newNode]];
     } else {
       tempDepthList = [...tempDepthList, [newNode]];
@@ -53,8 +53,8 @@ const EmptyList = () => {
     setEditing(false);
     setNodeList([
       ...nodeList.map((node) =>
-        node.id === newNode.parent
-          ? { ...node, children: [...node.children, newNode.id] }
+        node.idx === newNode.parent
+          ? { ...node, children: [...node.children, newNode.idx] }
           : node,
       ),
       newNode,
@@ -62,11 +62,11 @@ const EmptyList = () => {
 
     if (tempDepthList.length > 1) {
       const depthIds = tempDepthList[tempDepthList.length - 1].map(
-        (item) => item.id,
+        (item) => item.idx,
       );
 
       const found = tempDepthList[tempDepthList.length - 2].map((node) =>
-        node.id === newNode.parent ? { ...node, children: depthIds } : node,
+        node.idx === newNode.parent ? { ...node, children: depthIds } : node,
       );
       tempDepthList[tempDepthList.length - 2] = found;
     }
@@ -101,8 +101,10 @@ const EmptyList = () => {
         ) : (
           <AddNodeButton
             onClick={() => {
-              addNodeInputRef?.current?.focus();
               setEditing(true);
+              setTimeout(() => {
+                addNodeInputRef?.current?.focus();
+              }, 100);
             }}
           >
             <div></div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Line, { getLinePositions } from './Lines';
 import renderNodes from './Nodes';
@@ -33,9 +33,16 @@ const getRenderedPositions = (tree, renderedNodes) =>
   });
 
 export default function RoadMap() {
-  const [tree, setTree] = React.useState();
-  const [lines, setLines] = React.useState();
-  const renderedNodes = React.useRef();
+  const [tree, setTree] = useState();
+  const [lines, setLines] = useState([]);
+  const renderedNodes = useRef();
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const onWindowResize = () => setScreenSize(window.innerWidth);
+    window.addEventListener('resize', onWindowResize);
+    return () => window.removeEventListener('resize', onWindowResize);
+  }, []);
 
   useEffect(() => {
     fetch('./mock_data.json')
@@ -60,43 +67,45 @@ export default function RoadMap() {
     tree &&
       renderedNodes.current &&
       getRenderedPositions(tree, renderedNodes.current);
-  }, [tree]);
+  }, [tree, screenSize]);
 
   useEffect(() => {
     tree && setLines(getLinePositions(tree, renderedNodes.current));
-  }, [tree]);
+  }, [tree, screenSize]);
 
   return (
     <Container>
       <Canvas>
-        {renderNodes(tree, renderedNodes.current, 0)}
         <SVG>
           {lines &&
             lines.map((line, index) => (
-              <Line key={index} startPos={line.startPos} endPos={line.endPos} />
+              <Line
+                key={index}
+                type={line.type}
+                startPos={line.startPos}
+                endPos={line.endPos}
+              />
             ))}
         </SVG>
+        {renderNodes(tree, renderedNodes.current, 0)}
       </Canvas>
     </Container>
   );
 }
 
 const Container = styled.div`
-  border: 1px solid black;
-  width: 1000px;
+  width: 100%;
   height: 800px;
 `;
 const Canvas = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  * {
-    border: 1px solid black;
-  }
 `;
 
 const SVG = styled.svg`
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   width: 100%;

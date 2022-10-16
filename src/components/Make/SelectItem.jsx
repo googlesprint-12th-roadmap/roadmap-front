@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 const SelectItem = ({ data, clickFunc, check, index }) => {
   return (
-    <Container check={check} onClick={() => clickFunc(data.id, index)}>
+    <Container check={check} onClick={() => clickFunc(data.idx, index)}>
       <Marked></Marked>
       <Name>{data.title}</Name>
     </Container>
