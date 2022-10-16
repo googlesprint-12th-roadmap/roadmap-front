@@ -9,8 +9,7 @@ export default defineConfig({
       '/api': {
         target: 'https://7c5a-219-255-199-146.jp.ngrok.io',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-        secure: true,
+        secure: false,
         ws: true,
       },
     },

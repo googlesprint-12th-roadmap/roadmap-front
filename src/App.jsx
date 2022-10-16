@@ -5,6 +5,7 @@ import { RecoilRoot } from 'recoil';
 import GlobalStyles from './globalStyles';
 import Home from './pages/home';
 import Result from './pages/result';
+import { TestPage } from './pages/test';
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/view" element={<Result />}></Route>
+            <Route path="/test" element={<TestPage />}></Route>
           </Routes>
         </RecoilRoot>
       </QueryClientProvider>
