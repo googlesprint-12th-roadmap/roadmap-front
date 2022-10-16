@@ -3,6 +3,8 @@ import RoadMap from '../../components/result/Roadmap';
 import {
   Content,
   Header,
+  HeaderLink,
+  HeaderLinkWrapper,
   HeaderTitleMain,
   HeaderTitleSub,
   HeaderTitleWrapper,
@@ -17,6 +19,9 @@ const Result = () => {
           <HeaderTitleMain>{text['header.title.main']}</HeaderTitleMain>
           <HeaderTitleSub>{text['header.title.sub']}</HeaderTitleSub>
         </HeaderTitleWrapper>
+        <HeaderLinkWrapper>
+          <HeaderLink>{text['header.link.text']}</HeaderLink>
+        </HeaderLinkWrapper>
       </Header>
       <Content>
         <RoadMap />
