@@ -25,6 +25,10 @@ const Result = () => {
         </HeaderTitleWrapper>
         <HeaderLinkWrapper>
           <HeaderLink>{text['header.link.text']}</HeaderLink>
+          <HeaderLink>{text['header.link.delete']}</HeaderLink>
+          <HeaderLink onClick={() => alert(text['header.link.commingSoon'])}>
+            {text['header.link.edit']}
+          </HeaderLink>
         </HeaderLinkWrapper>
       </Header>
       <Content>

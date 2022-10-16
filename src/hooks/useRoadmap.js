@@ -35,6 +35,7 @@ export const useRoadMap = () => {
   let { roadmapId } = useParams();
   return useQuery(roadMapKey.roadMap(roadmapId), fetchRoadmap, {
     enabled: !!roadmapId,
+    suspense: true,
   });
 };
 
@@ -44,7 +45,7 @@ const updateRoadmap = ({ roadMap, idx }) =>
   axios.put(`/api/v1/roadmap/${idx}`, roadMap);
 const deleteRoadmap = ({ idx }) => axios.post(`/api/v1/roadmap/${idx}`, {});
 const saveGusetRoadmap = ({ roadMap }) =>
-  axios.post(`/api/v1/roadmap/guest`, roadMap);
+  axios.delete(`/api/v1/roadmap/guest`, roadMap);
 
 const roadMapKey = {
   roadMap: (idx) => [{ scope: 'roadMap', idx }],

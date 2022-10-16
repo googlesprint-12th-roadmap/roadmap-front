@@ -62,4 +62,5 @@ export const HeaderLink = styled.a`
     color: #ffa4c5;
   }
   border-bottom: 1px solid #ffa4c5;
+  margin-left: 13px;
 `;
