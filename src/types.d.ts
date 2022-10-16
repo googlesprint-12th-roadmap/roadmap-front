@@ -10,7 +10,7 @@ export interface Node {
 }
 
 export interface Data {
-  rootId: number;
+  rootIdx: number;
   list: Node[];
 }
 

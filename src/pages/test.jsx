@@ -10,6 +10,7 @@ export const TestPage = () => {
   const [id, setId] = useState('string');
   const [password, setPw] = useState('string');
   const [nickname, setNickname] = useState('string');
+  const [roadmapName, setRoadmapName] = useState('string');
   const saveRoadmap = useSaveRoadmap();
 
   return (
@@ -27,6 +28,11 @@ export const TestPage = () => {
           key="nk"
         />
       </div>
+      <input
+        value={roadmapName}
+        onChange={(e) => setRoadmapName(e.target.value)}
+        key="nk"
+      />
       <div>
         <button
           onClick={() =>
@@ -68,7 +74,11 @@ export const TestPage = () => {
         <button
           onClick={() =>
             saveRoadmap.mutate(
-              { roadMap: testRoadmapData() },
+              {
+                nodes: testRoadmapData().list,
+                rootIdx: testRoadmapData().rootIdx,
+                name: roadmapName,
+              },
               {
                 onSuccess: (d) => {
                   console.log(d);

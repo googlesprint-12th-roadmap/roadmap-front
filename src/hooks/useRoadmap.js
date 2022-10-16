@@ -20,7 +20,8 @@ export const useRoadMap = () => {
   return useQuery(roadMapKey.roadMap(roadmapId), fetchRoadmap);
 };
 
-const saveRoadmap = ({ roadMap }) => axios.post(`/api/v1/roadmap`, roadMap);
+const saveRoadmap = ({ nodes, name, rootIdx }) =>
+  axios.post(`/api/v1/roadmap`, { nodes, name, rootIdx });
 const updateRoadmap = ({ roadMap, idx }) =>
   axios.put(`/api/v1/roadmap/${idx}`, roadMap);
 const deleteRoadmap = ({ idx }) => axios.post(`/api/v1/roadmap/${idx}`, {});
