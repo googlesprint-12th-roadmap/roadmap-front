@@ -41,7 +41,7 @@ export const testRoadmapData = () => {
   const main1_3 = fakeRoadmapData('main');
   setNodeChildren(
     rootNode,
-    ...[rootNode_sub1, rootNode_sub2, main1_1, main1_1, main1_1],
+    ...[rootNode_sub1, rootNode_sub2, main1_1, main1_2, main1_3],
   );
   const main1_1_sub1 = fakeRoadmapData('sub');
   const main1_1_sub2 = fakeRoadmapData('sub');

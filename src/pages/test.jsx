@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useLogin } from '../hooks/useLogin';
 import { useRegister } from '../hooks/useRegister';
+import { testRoadmapData } from '../__test__/fakeRoadmapData';
 export const TestPage = () => {
   const login = useLogin();
   const register = useRegister();
@@ -31,8 +32,7 @@ export const TestPage = () => {
               { id, password },
               {
                 onSuccess: (d) => {
-                  axios.defaults.headers.post['header1'] =
-                    d.refreshToken ?? d.accessToken;
+                  axios.defaults.headers.post['Authorization'] = d?.accessToken;
                 },
               },
             )
@@ -56,6 +56,10 @@ export const TestPage = () => {
         >
           register
         </button>
+      </div>
+      <div>
+        <span>fakeRoadmapData</span>
+        <div>{JSON.stringify(testRoadmapData())}</div>
       </div>
     </div>
   );
