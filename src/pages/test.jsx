@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useLogin } from '../hooks/useLogin';
 import { useRegister } from '../hooks/useRegister';
-import { useSaveRoadmap } from '../hooks/useRoadmap';
+import { useDeleteRoadmap, useSaveRoadmap } from '../hooks/useRoadmap';
 import { testRoadmapData } from '../__test__/fakeRoadmapData';
 export const TestPage = () => {
   const login = useLogin();
@@ -11,8 +12,10 @@ export const TestPage = () => {
   const [password, setPw] = useState('string');
   const [nickname, setNickname] = useState('string');
   const [roadmapName, setRoadmapName] = useState('string');
+  const [deleteId, setDeleteId] = useState('0');
   const saveRoadmap = useSaveRoadmap();
-
+  const deleteRoadmap = useDeleteRoadmap();
+  const navigate = useNavigate();
   return (
     <div>
       <div>
@@ -40,6 +43,14 @@ export const TestPage = () => {
         <input
           value={roadmapName}
           onChange={(e) => setRoadmapName(e.target.value)}
+          key="nk"
+        />
+      </div>
+      <div>
+        deleteId :
+        <input
+          value={deleteId}
+          onChange={(e) => setDeleteId(e.target.value)}
           key="nk"
         />
       </div>
@@ -99,6 +110,26 @@ export const TestPage = () => {
           }
         >
           save Roadmap
+        </button>
+      </div>
+      <div>
+        delete roadmap :{' '}
+        <button
+          onClick={() =>
+            deleteRoadmap.mutate(
+              {
+                idx: +deleteId,
+              },
+              {
+                onSuccess: (d) => {
+                  console.log(d);
+                  navigate('/make');
+                },
+              },
+            )
+          }
+        >
+          delete Roadmap
         </button>
       </div>
     </div>

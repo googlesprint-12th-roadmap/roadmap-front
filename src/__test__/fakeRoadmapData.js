@@ -68,7 +68,7 @@ export const testRoadmapData = () => {
     main1_3,
   ];
   return {
-    rootIdx: 1,
+    rootIdx: rootNode.idx,
     list,
   };
 };
