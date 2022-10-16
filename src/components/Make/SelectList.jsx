@@ -7,6 +7,7 @@ import {
   emptyNodeCheckState,
   lastSelectIdState,
   nodeListState,
+  currentSelectedIdState,
 } from '../../atoms/makeListAtoms';
 import SelectItem from './SelectItem';
 import _ from 'lodash';
@@ -14,7 +15,10 @@ import { AddNodeButton, AddNodeForm, AddNodeWrap } from './make.styles';
 
 const SelectList = ({ data, depth }) => {
   const [isShown, setIsShown] = useState(false);
-  const [currentCheckId, setCurrentCheckId] = useState(-1);
+  // recoil 전역 상태로 변경
+  const [currentCheckId, setCurrentCheckId] = useRecoilState(
+    currentSelectedIdState,
+  );
   const [nodeList, setNodeList] = useRecoilState(nodeListState);
   const [depthList, setDepthList] = useRecoilState(depthState);
   const [emptyNode, setEmptyNode] = useRecoilState(emptyNodeCheckState);
