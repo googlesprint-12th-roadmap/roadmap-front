@@ -16,8 +16,12 @@ const Result = () => {
     <Wrapper>
       <Header>
         <HeaderTitleWrapper>
-          <HeaderTitleMain>{text['header.title.main']}</HeaderTitleMain>
-          <HeaderTitleSub>{text['header.title.sub']}</HeaderTitleSub>
+          <HeaderTitleMain>
+            <span>{text['header.title.main']}</span>
+          </HeaderTitleMain>
+          <HeaderTitleSub>
+            <span>{text['header.title.sub']}</span>
+          </HeaderTitleSub>
         </HeaderTitleWrapper>
         <HeaderLinkWrapper>
           <HeaderLink>{text['header.link.text']}</HeaderLink>
