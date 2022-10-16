@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-let id = 0;
+let id = Date.now();
 /**
  * @type {(type?:import('../types.d').NodeType,id?:number)=>import('../types.d').Node}
  * */

@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  min-width: 600px;
+  margin: 50px 0px;
   font-family: 'Inter';
   font-style: normal;
   box-sizing: border-box;
@@ -16,7 +18,7 @@ export const Header = styled.header`
 `;
 export const HeaderTitleWrapper = styled.div`
   width: 700px;
-  margin-left: 50px;
+
   box-sizing: border-box;
   display: flex;
   gap: 4px;
@@ -48,7 +50,6 @@ export const Content = styled.div`
 `;
 
 export const HeaderLinkWrapper = styled.div`
-  margin-left: 50px;
   margin-top: 9px;
 `;
 
@@ -61,4 +62,7 @@ export const HeaderLink = styled.a`
     color: #ffa4c5;
   }
   border-bottom: 1px solid #ffa4c5;
+  & + &::before {
+    margin-left: 13px;
+  }
 `;
