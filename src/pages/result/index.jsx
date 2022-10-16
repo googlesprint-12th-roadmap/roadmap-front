@@ -6,17 +6,18 @@ import {
   HeaderTitle,
   Wrapper,
 } from './index.style';
-import RoadMap from './Roadmap';
+import { useRoadmapContainerContext } from './ResultContext';
 import text from './text.json';
 const Result = () => {
+  const { RoadmapContainer } = useRoadmapContainerContext();
   return (
     <Wrapper>
       <Header>
-        <HeaderTitle>{text['header.title']}</HeaderTitle>
+        <HeaderTitle>{text['header.title.rightLabel']}</HeaderTitle>
         <HeaderButton>{text['header.button.share']}</HeaderButton>
       </Header>
       <Content>
-        <RoadMap />
+        <RoadmapContainer />
       </Content>
     </Wrapper>
   );

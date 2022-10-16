@@ -5,6 +5,7 @@ import { RecoilRoot } from 'recoil';
 import GlobalStyles from './globalStyles';
 import Home from './pages/home';
 import Result from './pages/result';
+import RoadMapContainerContextProvider from './pages/result/ResultContext';
 
 const queryClient = new QueryClient();
 
@@ -16,7 +17,14 @@ function App() {
         <RecoilRoot>
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/view" element={<Result />}></Route>
+            <Route
+              path="/result"
+              element={
+                <RoadMapContainerContextProvider>
+                  <Result />
+                </RoadMapContainerContextProvider>
+              }
+            ></Route>
           </Routes>
         </RecoilRoot>
       </QueryClientProvider>

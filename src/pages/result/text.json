@@ -1,5 +1,5 @@
 {
   "header.button.share": "URL로 공유하기",
-  "header.title": "프론트엔드",
-  "header.title.small": "로드맵"
+  "header.title.rightLabel": "프론트엔드",
+  "header.title.leftLabel": "로드맵"
 }

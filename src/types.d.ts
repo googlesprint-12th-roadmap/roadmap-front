@@ -13,3 +13,13 @@ export interface Data {
   rootId: number;
   list: Node[];
 }
+
+export interface TreeNode {
+  id: number;
+  url: string;
+  desc: string;
+  type: NodeType;
+  label: string;
+  children: TreeNode[];
+  parent: TreeNode;
+}
