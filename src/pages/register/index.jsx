@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const Login = () => {
+const Register = () => {
   const [userInfo, setUserInfo] = useState({ "id": "", "password": "" });
 
   const onChange = (e) => {
@@ -16,23 +16,29 @@ const Login = () => {
   return (
     <Container>
       <div>
-        <span>Login</span>
+        <span>Register</span>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="id"
-            placeholder='아이디'
-            onChange={(e) => onChange(e)}
-            required />
-          <input
-            type="password"
-            name="password"
-            placeholder='비밀번호'
-            onChange={(e) => onChange(e)}
-          />
+            <input
+                type="text"
+                name="name"
+                placeholder='닉네임'
+                onChange={(e) => onChange(e)}
+                required />
+            <input
+                type="text"
+                name="id"
+                placeholder='아이디'
+                onChange={(e) => onChange(e)}
+                required />
+            <input
+                type="password"
+                name="password"
+                placeholder='비밀번호'
+                onChange={(e) => onChange(e)}
+            />
           <button
             type="submit">
-            Login
+            Register
           </button>
         </form>
       </div>
@@ -40,7 +46,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
 
 const Container = styled.section`
   width: 100%;

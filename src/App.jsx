@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import GlobalStyles from './globalStyles';
 import Home from './pages/home';
 import Login from './pages/login';
+import Register from './pages/register';
 
 const queryClient = new QueryClient();
 
@@ -18,7 +19,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/login" element={<Login />}></Route>
-            </Routes>
+            <Route path="/register" element={<Register />}></Route>
+          </Routes>
         </RecoilRoot>
       </QueryClientProvider>
     </>
