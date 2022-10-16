@@ -1,19 +1,22 @@
 import React from 'react';
+import RoadMap from '../../components/result/Roadmap';
 import {
   Content,
   Header,
-  HeaderButton,
-  HeaderTitle,
+  HeaderTitleMain,
+  HeaderTitleSub,
+  HeaderTitleWrapper,
   Wrapper,
 } from './index.style';
-import RoadMap from '../../components/result/Roadmap';
 import text from './text.json';
 const Result = () => {
   return (
     <Wrapper>
       <Header>
-        <HeaderTitle>{text['header.title']}</HeaderTitle>
-        <HeaderButton>{text['header.button.share']}</HeaderButton>
+        <HeaderTitleWrapper>
+          <HeaderTitleMain>{text['header.title.main']}</HeaderTitleMain>
+          <HeaderTitleSub>{text['header.title.sub']}</HeaderTitleSub>
+        </HeaderTitleWrapper>
       </Header>
       <Content>
         <RoadMap />
