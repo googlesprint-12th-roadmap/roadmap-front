@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useLogin } from '../hooks/useLogin';
 import { useRegister } from '../hooks/useRegister';
+import { useSaveRoadmap } from '../hooks/useRoadmap';
 import { testRoadmapData } from '../__test__/fakeRoadmapData';
 export const TestPage = () => {
   const login = useLogin();
@@ -9,6 +10,7 @@ export const TestPage = () => {
   const [id, setId] = useState('string');
   const [password, setPw] = useState('string');
   const [nickname, setNickname] = useState('string');
+  const saveRoadmap = useSaveRoadmap();
 
   return (
     <div>
@@ -60,6 +62,23 @@ export const TestPage = () => {
       <div>
         <span>fakeRoadmapData</span>
         <div>{JSON.stringify(testRoadmapData())}</div>
+      </div>
+      <div>
+        save roadmap :{' '}
+        <button
+          onClick={() =>
+            saveRoadmap.mutate(
+              { roadMap: testRoadmapData() },
+              {
+                onSuccess: (d) => {
+                  console.log(d);
+                },
+              },
+            )
+          }
+        >
+          register
+        </button>
       </div>
     </div>
   );

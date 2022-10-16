@@ -5,19 +5,19 @@ import { faker } from '@faker-js/faker';
  * */
 export const fakeRoadmapData = (type, id) => {
   const data = {
-    id: id ?? Date.now(),
+    idx: id ?? Date.now(),
     url: faker.internet.url(),
     desc: faker.lorem.sentence(),
+    title: faker.lorem.slug(),
     type:
       type ??
       /**@type {import('../types.d').NodeType} */ (
-        faker.helpers.arrayElement(['main', 'sub'])
+        faker.helpers.arrayElement(['MAIN', 'SUB'])
       ),
     label: faker.name.jobTitle(),
     children: [],
     parent: 0,
   };
-  console.log(data);
   return data;
 };
 
@@ -25,8 +25,8 @@ export const fakeRoadmapData = (type, id) => {
  * @type {(parent?:import('../types.d').Node,...children:import('../types.d').Node[])=>void}
  * */
 const setNodeChildren = (parent, ...children) => {
-  parent.children = children.map((d) => d.id);
-  children.forEach((c) => (c.parent = parent.id));
+  parent.children = children.map((d) => d.idx);
+  children.forEach((c) => (c.parent = parent.idx));
 };
 
 /**

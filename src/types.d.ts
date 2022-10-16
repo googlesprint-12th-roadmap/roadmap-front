@@ -1,10 +1,10 @@
-export type NodeType = 'main' | 'sub';
+export type NodeType = 'MAIN' | 'SUB';
 export interface Node {
-  id: number;
+  idx: number;
   url: string;
   desc: string;
   type: NodeType;
-  label: string;
+  title: string;
   children: number[]; // Id[]
   parent: number; // Id[]
 }

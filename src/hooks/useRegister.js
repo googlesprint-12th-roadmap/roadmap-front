@@ -6,4 +6,4 @@ export const useRegister = () => {
 };
 
 const register = ({ id, password, nickname }) =>
-  axios.post(`/api/v1/account/login`, { id, password, nickname });
+  axios.post(`/api/v1/account/register`, { id, password, nickname });
