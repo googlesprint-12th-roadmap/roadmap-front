@@ -17,7 +17,7 @@ function App() {
         <RecoilRoot>
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/view/:roadmapId" element={<Result />}></Route>
+            <Route path="/view" element={<Result />}></Route>
             <Route path="/test" element={<TestPage />}></Route>
           </Routes>
         </RecoilRoot>

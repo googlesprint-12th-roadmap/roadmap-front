@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Line, { getLinePositions } from './Lines';
 import renderNodes from './Nodes';
@@ -94,8 +94,7 @@ export default function RoadMap() {
 }
 
 const Container = styled.div`
-  border: 1px solid black;
-  width: 1000px;
+  width: 100%;
   height: 800px;
 `;
 const Canvas = styled.div`
