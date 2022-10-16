@@ -6,7 +6,7 @@ import {
   HeaderTitle,
   Wrapper,
 } from './index.style';
-import RoadMap from './Roadmap';
+import RoadMap from '../../components/result/Roadmap';
 import text from './text.json';
 const Result = () => {
   return (
