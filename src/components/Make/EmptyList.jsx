@@ -34,7 +34,7 @@ const EmptyList = () => {
       id: new Date().getTime(),
       url: '',
       desc: '',
-      type: 'main',
+      type: 'MAIN',
       title: newNodeText,
       children: [],
       parent: lastId,
@@ -43,7 +43,7 @@ const EmptyList = () => {
     let tempDepthList = _.cloneDeep(depthList);
 
     if (nodeList.length === 0) {
-      newNode = { ...newNode, parent: 'root' };
+      newNode = { ...newNode, parent: new Date().getTime() };
       tempDepthList = [[newNode]];
     } else {
       tempDepthList = [...tempDepthList, [newNode]];
@@ -101,8 +101,10 @@ const EmptyList = () => {
         ) : (
           <AddNodeButton
             onClick={() => {
-              addNodeInputRef?.current?.focus();
               setEditing(true);
+              setTimeout(() => {
+                addNodeInputRef?.current?.focus();
+              }, 100);
             }}
           >
             <div></div>

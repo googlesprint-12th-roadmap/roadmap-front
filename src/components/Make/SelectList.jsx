@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 import {
+  currentSelectViewState,
   depthState,
   emptyNodeCheckState,
   lastSelectIdState,
@@ -17,6 +18,10 @@ const SelectList = ({ data, depth }) => {
   const [nodeList, setNodeList] = useRecoilState(nodeListState);
   const [depthList, setDepthList] = useRecoilState(depthState);
   const [emptyNode, setEmptyNode] = useRecoilState(emptyNodeCheckState);
+
+  const [currentSelect, setCurrentSelect] = useRecoilState(
+    currentSelectViewState,
+  );
   const [lastId, setLastId] = useRecoilState(lastSelectIdState);
 
   // 로빈
@@ -28,6 +33,7 @@ const SelectList = ({ data, depth }) => {
   const handleClickSelectItem = useCallback(
     (id, index) => {
       const tempDepthList = _.cloneDeep(depthList);
+      setCurrentSelect(depth);
 
       if (data[index].id === currentCheckId) {
         setCurrentCheckId(-1);
@@ -47,6 +53,7 @@ const SelectList = ({ data, depth }) => {
       const tempCurrenDepth = [...data[index].children].map(
         (id) => nodeList.filter((item) => item.id === id)[0],
       );
+      setEmptyNode(false);
 
       setDepthList(tempDepthList.slice(0, depth + 1).concat([tempCurrenDepth]));
     },
@@ -65,7 +72,7 @@ const SelectList = ({ data, depth }) => {
       id: new Date().getTime(),
       url: '',
       desc: '',
-      type: 'main',
+      type: 'MAIN',
       title: newNodeText,
       children: [],
       parent: data[0].parent,
@@ -143,7 +150,9 @@ const SelectList = ({ data, depth }) => {
             <AddNodeButton
               onClick={() => {
                 setEditing(true);
-                addNodeInputRef?.current?.focus();
+                setTimeout(() => {
+                  addNodeInputRef?.current?.focus();
+                }, 100);
               }}
             >
               <div></div>

@@ -22,7 +22,10 @@ function SwiperSection({ children, between = 0 }) {
       swipe.navigation.update();
     },
     onSwiper: setSwiper,
-    onSlideChange: (e) => setMainIndex(e.activeIndex),
+    onSlideChange: (e) => {
+      console.log(e.activeIndex);
+      setMainIndex(e.activeIndex);
+    },
     navigation: {
       nextEl: btnNextRef.current,
       prevEl: btnPrevRef.current,
@@ -37,6 +40,11 @@ function SwiperSection({ children, between = 0 }) {
         spaceBetween: 0,
       },
     },
+  };
+
+  const slideTo = (index) => {
+    console.log(index);
+    if (swiper) swiper.slideTo(index);
   };
 
   return (
