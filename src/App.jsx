@@ -1,8 +1,11 @@
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import GlobalStyles from './globalStyles';
 import Home from './pages/home';
+import Result from './pages/result';
+import { TestPage } from './pages/test';
 
 const queryClient = new QueryClient();
 
@@ -14,6 +17,8 @@ function App() {
         <RecoilRoot>
           <Routes>
             <Route path="/" element={<Home />}></Route>
+            <Route path="/view/:roadmapId" element={<Result />}></Route>
+            <Route path="/test" element={<TestPage />}></Route>
           </Routes>
         </RecoilRoot>
       </QueryClientProvider>
