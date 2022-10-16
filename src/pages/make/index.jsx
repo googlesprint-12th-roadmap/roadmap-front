@@ -8,6 +8,7 @@ import {
   nodeListState,
 } from '../../atoms/makeListAtoms';
 import EmptyList from '../../components/make/EmptyList';
+import NodeOption from '../../components/make/NodeOption';
 import SelectList from '../../components/make/SelectList';
 import SwiperSection from '../../components/SwiperSection';
 import {
@@ -135,6 +136,7 @@ const Make = () => {
           )}
         </SwiperSection>
       </MakeSection>
+      <NodeOption />
     </Container>
   );
 };
