@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  min-width: 600px;
   margin: 50px 0px;
   font-family: 'Inter';
   font-style: normal;

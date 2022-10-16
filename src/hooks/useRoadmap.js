@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
@@ -6,18 +6,36 @@ export const useSaveRoadmap = () => {
   return useMutation(saveRoadmap);
 };
 export const useUpdateRoadmap = () => {
-  return useMutation(updateRoadmap);
+  const qc = useQueryClient();
+  return useMutation(updateRoadmap, {
+    onSuccess: (d) => {
+      qc.invalidateQueries(roadMapKey.roadMap(d.data.idx));
+    },
+  });
 };
 export const useDeleteRoadmap = () => {
-  return useMutation(deleteRoadmap, { onSuccess: (d) => {} });
+  const qc = useQueryClient();
+  return useMutation(deleteRoadmap, {
+    onSuccess: (d) => {
+      qc.invalidateQueries(roadMapKey.roadMap(d.data.idx));
+    },
+  });
 };
+
 export const useGuestRoadmap = () => {
-  return useMutation(saveGusetRoadmap);
+  const qc = useQueryClient();
+  return useMutation(saveGusetRoadmap, {
+    onSuccess: (d) => {
+      qc.invalidateQueries(roadMapKey.roadMap(d.data.idx));
+    },
+  });
 };
 
 export const useRoadMap = () => {
   let { roadmapId } = useParams();
-  return useQuery(roadMapKey.roadMap(roadmapId), fetchRoadmap);
+  return useQuery(roadMapKey.roadMap(roadmapId), fetchRoadmap, {
+    enabled: !!roadmapId,
+  });
 };
 
 const saveRoadmap = ({ nodes, name, rootIdx }) =>
