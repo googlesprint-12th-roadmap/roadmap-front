@@ -1,6 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useLayoutEffect,
+  useMemo,
+} from 'react';
 import styled from 'styled-components';
-import Line, { getLinePositions } from './Lines';
+import { getLinePositions, MemoizedLines as Lines } from './Lines';
 import renderNodes from './Nodes';
 import { createTree } from './utils';
 
@@ -38,6 +44,11 @@ export default function RoadMap() {
   const renderedNodes = useRef();
   const [screenSize, setScreenSize] = useState(window.innerWidth);
 
+  const nodes = useMemo(
+    () => renderNodes(tree, renderedNodes.current, 0),
+    [tree, screenSize],
+  );
+
   useEffect(() => {
     const onWindowResize = () => setScreenSize(window.innerWidth);
     window.addEventListener('resize', onWindowResize);
@@ -63,52 +74,33 @@ export default function RoadMap() {
       });
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     tree &&
       renderedNodes.current &&
       getRenderedPositions(tree, renderedNodes.current);
   }, [tree, screenSize]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     tree && setLines(getLinePositions(tree, renderedNodes.current));
   }, [tree, screenSize]);
 
   return (
     <Container>
       <Canvas>
-        <SVG>
-          {lines &&
-            lines.map((line, index) => (
-              <Line
-                key={index}
-                type={line.type}
-                startPos={line.startPos}
-                endPos={line.endPos}
-              />
-            ))}
-        </SVG>
-        {renderNodes(tree, renderedNodes.current, 0)}
+        <Lines lines={lines} />
+        {nodes}
       </Canvas>
     </Container>
   );
 }
 
 const Container = styled.div`
-  border: 1px solid black;
-  width: 1000px;
+  width: 100%;
+  height: 100%;
   height: 800px;
 `;
 const Canvas = styled.div`
   position: relative;
-  width: 100%;
-  height: 100%;
-`;
-
-const SVG = styled.svg`
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  max-width: 1000px;
+  min-width: 720px;
 `;

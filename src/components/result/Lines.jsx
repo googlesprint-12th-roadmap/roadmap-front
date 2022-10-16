@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { NODE_TYPE, SUBTREE_DIRECTION } from './Roadmap';
 
 const LINE_WIDTH = {
@@ -36,7 +37,7 @@ export const getLinePositions = (head, renderedNodes) => {
   );
 };
 
-export default function Line({ type, startPos, endPos }) {
+const Line = ({ type, startPos, endPos }) => {
   return (
     <line
       x1={startPos.x}
@@ -44,7 +45,33 @@ export default function Line({ type, startPos, endPos }) {
       x2={endPos.x}
       y2={endPos.y}
       stroke="rgba(255, 164, 197, 1)"
-      stroke-width={LINE_WIDTH[type] + 'px'}
+      strokeWidth={LINE_WIDTH[type] + 'px'}
     />
   );
-}
+};
+
+const Lines = ({ lines }) => {
+  return (
+    <SVG>
+      {lines &&
+        lines.map((line, index) => (
+          <Line
+            key={index}
+            type={line.type}
+            startPos={line.startPos}
+            endPos={line.endPos}
+          />
+        ))}
+    </SVG>
+  );
+};
+export const MemoizedLines = React.memo(Lines);
+
+const SVG = styled.svg`
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
