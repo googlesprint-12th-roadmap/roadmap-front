@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker';
-
+let id = 0;
 /**
  * @type {(type?:import('../types.d').NodeType,id?:number)=>import('../types.d').Node}
  * */
-export const fakeRoadmapData = (type, id) => {
+export const fakeRoadmapData = (type) => {
   const data = {
-    idx: id ?? Date.now(),
+    idx: ++id,
     url: faker.internet.url(),
     desc: faker.lorem.sentence(),
     title: faker.lorem.slug(),

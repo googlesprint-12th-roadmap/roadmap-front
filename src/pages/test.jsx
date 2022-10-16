@@ -40,7 +40,9 @@ export const TestPage = () => {
               { id, password },
               {
                 onSuccess: (d) => {
-                  axios.defaults.headers.post['Authorization'] = d?.accessToken;
+                  console.log(d);
+                  axios.defaults.headers.common['Authorization'] =
+                    d?.data?.accessToken;
                 },
               },
             )
