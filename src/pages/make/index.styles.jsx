@@ -9,10 +9,26 @@ export const Header = styled.header`
   margin-top: 5rem;
 `;
 
-export const Title = styled.h2`
+export const Title = styled.span`
   font-size: 6.4rem;
   line-height: 7.7rem;
   font-weight: 700;
+
+  position: absolute;
+  opacity: 0;
+`;
+
+export const InputTitle = styled.input`
+  font-size: 6.4rem;
+  line-height: 7.7rem;
+  font-weight: 700;
+  z-index: 1;
+  border: none;
+  min-width: 20rem;
+
+  :focus {
+    outline: none;
+  }
 `;
 
 export const DefaultText = styled.h3`
@@ -30,6 +46,7 @@ export const TitleWrap = styled.div`
   display: flex;
   padding-bottom: 1rem;
   border-bottom: 1px solid #000;
+  position: relative;
 `;
 
 export const MakeSection = styled.section`

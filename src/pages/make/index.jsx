@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { SwiperSlide } from 'swiper/react';
+import { titleState } from '../../atoms/createAtoms';
+import { depthState, nodeListState } from '../../atoms/makeListAtoms';
 import SelectList from '../../components/Make/SelectList';
 import SwiperSection from '../../components/SwiperSection';
 import {
   Container,
   DefaultText,
   Header,
+  InputTitle,
   MakeSection,
   Title,
   TitleWrap,
@@ -17,17 +21,17 @@ const data = [
     url: '',
     desc: '',
     type: 'main',
-    label: 'Frontend',
+    title: 'Frontend',
     children: [2, 3],
-    parent: 0,
+    parent: 'root',
   },
   {
     id: 2,
     url: '',
     desc: '',
     type: 'main',
-    label: 'SPA',
-    children: [],
+    title: 'SPA',
+    children: [6],
     parent: 1,
   },
   {
@@ -35,7 +39,7 @@ const data = [
     url: '',
     desc: '',
     type: 'main',
-    label: 'Skill',
+    title: 'Skill',
     children: [4, 5],
     parent: 1,
   },
@@ -44,7 +48,7 @@ const data = [
     url: '',
     desc: '',
     type: 'sub',
-    label: 'CSS',
+    title: 'CSS',
     children: [],
     parent: 3,
   },
@@ -53,58 +57,70 @@ const data = [
     url: '',
     desc: '',
     type: 'main',
-    label: 'HTML',
+    title: 'HTML',
     children: [],
     parent: 3,
+  },
+  {
+    id: 6,
+    url: '',
+    desc: '',
+    type: 'main',
+    title: 'Javascript',
+    children: [],
+    parent: 2,
   },
 ];
 
 const Make = () => {
+  const [nodeList, setNodeList] = useRecoilState(nodeListState);
+  const [depthList, setDepthList] = useRecoilState(depthState);
+  const [title, setTitle] = useRecoilState(titleState);
+  const [width, setWidth] = useState(0);
+  const spanRef = useRef();
+
+  const handleChangeTitle = useCallback((e) => {
+    setTitle(e.target.value);
+  }, []);
+
+  useEffect(() => {
+    setDepthList([data.filter((item) => item.parent === 'root')]);
+    setNodeList([...data]);
+  }, []);
+
+  useEffect(() => {
+    setWidth(spanRef.current.offsetWidth);
+  }, [title]);
+
   return (
     <Container>
       <Header>
         <TitleWrap>
-          <Title>이름 입력하는 곳</Title>
+          <Title ref={spanRef}>{title}</Title>
+          <InputTitle
+            onChange={handleChangeTitle}
+            autoFocus
+            type={'text'}
+            style={{ width }}
+            value={title}
+          ></InputTitle>
           <DefaultText>로드맵</DefaultText>
         </TitleWrap>
-        {/* TODO
-          이름 입력 후 타이틀
-          수정 버튼이면 input창
-        */}
       </Header>
 
-      {/* TODO
-          첫번째
-          1. Select 리스트 컴포넌트 한개 생성
-          2. 새로운 노드 추가 버튼
-          3. 추가 버튼 클릭시 옆에 새로운 컴포넌트 추가
-          4. 셀렉 리스트 컴포넌트가 3개나 4개 이상 넘어갈 시 거기서 추가하면
-             현재 보이는 가장 왼쪽 컴포넌트를 가릴 정도의 자동 스크롤
-
-          두번째
-          1. 아이템 하나 클릭하면 그에 맞게 parent 컴포넌트 그려주기
-          2. children 컴포넌트도 그에 맞게 그려주기
-        */}
       <MakeSection>
         <SwiperSection between={30}>
-          <SwiperSlide>
-            <SelectList></SelectList>
-          </SwiperSlide>
-          <SwiperSlide>
-            <SelectList></SelectList>
-          </SwiperSlide>
-          <SwiperSlide>
-            <SelectList></SelectList>
-          </SwiperSlide>
-          <SwiperSlide>
-            <SelectList></SelectList>
-          </SwiperSlide>
-          <SwiperSlide>
-            <SelectList></SelectList>
-          </SwiperSlide>
-          <SwiperSlide>
-            <SelectList></SelectList>
-          </SwiperSlide>
+          {depthList &&
+            depthList.length > 0 &&
+            depthList.map((item, index) => {
+              if (item.length > 0) {
+                return (
+                  <SwiperSlide key={index}>
+                    <SelectList data={item} depth={index}></SelectList>
+                  </SwiperSlide>
+                );
+              }
+            })}
         </SwiperSection>
       </MakeSection>
     </Container>

@@ -1,11 +1,11 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const SelectItem = ({ name, check }) => {
+const SelectItem = ({ data, clickFunc, check, index }) => {
   return (
-    <Container check={check}>
+    <Container check={check} onClick={() => clickFunc(data.id, index)}>
       <Marked></Marked>
-      <Name>{name}</Name>
+      <Name>{data.title}</Name>
     </Container>
   );
 };
@@ -27,6 +27,10 @@ const Container = styled.li`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  :hover {
+    background-color: #efefef;
+  }
 
   ${(props) =>
     props.check &&
