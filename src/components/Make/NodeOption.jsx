@@ -35,8 +35,7 @@ const NodeOption = () => {
 
   const handleNodeUpdate = () => {
     if (!currentTitle.length) {
-      alert('노드의 제목을 입력해주세요.');
-      return;
+      return alert('노드의 제목을 입력해주세요.');
     }
     const newNodeList = nodeList.map((item) => {
       if (item.idx === currentSelectedId) {
