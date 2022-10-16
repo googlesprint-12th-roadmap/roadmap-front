@@ -76,13 +76,18 @@ export default function RoadMap() {
   return (
     <Container>
       <Canvas>
-        {renderNodes(tree, renderedNodes.current, 0)}
         <SVG>
           {lines &&
             lines.map((line, index) => (
-              <Line key={index} startPos={line.startPos} endPos={line.endPos} />
+              <Line
+                key={index}
+                type={line.type}
+                startPos={line.startPos}
+                endPos={line.endPos}
+              />
             ))}
         </SVG>
+        {renderNodes(tree, renderedNodes.current, 0)}
       </Canvas>
     </Container>
   );
@@ -101,6 +106,7 @@ const Canvas = styled.div`
 
 const SVG = styled.svg`
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
   width: 100%;
