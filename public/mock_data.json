@@ -1,0 +1,74 @@
+[
+  {
+    "id": 0,
+    "url": "",
+    "desc": "",
+    "type": "main",
+    "label": "Frontend",
+    "children": [1, 2, 3, 4],
+    "parent": null
+  },
+  {
+    "id": 1,
+    "url": "",
+    "desc": "",
+    "type": "sub",
+    "label": "HTML",
+    "children": [],
+    "parent": 0
+  },
+  {
+    "id": 2,
+    "url": "",
+    "desc": "",
+    "type": "sub",
+    "label": "CSS",
+    "children": [],
+    "parent": 0
+  },
+  {
+    "id": 3,
+    "url": "",
+    "desc": "",
+    "type": "sub",
+    "label": "JavaScript",
+    "children": [],
+    "parent": 0
+  },
+  {
+    "id": 4,
+    "url": "",
+    "desc": "",
+    "type": "main",
+    "label": "SPA Libraries/Frameworks",
+    "children": [5, 6, 7],
+    "parent": 0
+  },
+  {
+    "id": 5,
+    "url": "",
+    "desc": "",
+    "type": "sub",
+    "label": "React",
+    "children": [],
+    "parent": 4
+  },
+  {
+    "id": 6,
+    "url": "",
+    "desc": "",
+    "type": "sub",
+    "label": "Angular",
+    "children": [],
+    "parent": 4
+  },
+  {
+    "id": 7,
+    "url": "",
+    "desc": "",
+    "type": "sub",
+    "label": "Vue.js",
+    "children": [],
+    "parent": 4
+  }
+]
