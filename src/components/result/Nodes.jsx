@@ -6,7 +6,7 @@ export default function renderNodes(head, renderedNodes, depth) {
   // console.log('rendering nodes...', head, renderedNodes);
   if (!head || !renderedNodes) return;
   const subtreeDirection = !!(depth % 2);
-  renderedNodes[head.id].subtreeDirection = subtreeDirection;
+  renderedNodes[head.idx].subtreeDirection = subtreeDirection;
   return (
     head && (
       <>
@@ -18,16 +18,16 @@ export default function renderNodes(head, renderedNodes, depth) {
                 .filter((node) => node.type === NODE_TYPE.SUB)
                 .map((node) => (
                   <SubNode
-                    key={node.id}
-                    ref={(element) => (renderedNodes[node.id].ref = element)}
+                    key={node.idx}
+                    ref={(element) => (renderedNodes[node.idx].ref = element)}
                   >
-                    <SubNodeTitle>{node.label}</SubNodeTitle>
+                    <SubNodeTitle>{node.title}</SubNodeTitle>
                   </SubNode>
                 ))}
             </Subtree>
           )}
-          <MainNode ref={(element) => (renderedNodes[head.id].ref = element)}>
-            <MainNodeTitle>{head.label}</MainNodeTitle>
+          <MainNode ref={(element) => (renderedNodes[head.idx].ref = element)}>
+            <MainNodeTitle>{head.title}</MainNodeTitle>
           </MainNode>
         </Level>
         {head?.children?.length > 0 &&
