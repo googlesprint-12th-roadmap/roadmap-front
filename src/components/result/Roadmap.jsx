@@ -10,8 +10,8 @@ export const NODE_TYPE = { MAIN: 'main', SUB: 'sub' };
 const getRenderedPositions = (tree, renderedNodes) =>
   tree &&
   renderedNodes &&
-  Object.keys(renderedNodes.current).forEach((id) => {
-    const node = renderedNodes.current[id];
+  Object.keys(renderedNodes).forEach((id) => {
+    const node = renderedNodes[id];
     node.offsetTop = node.ref.offsetTop;
     node.offsetLeft = node.ref.offsetLeft;
     node.midpointTop = {
