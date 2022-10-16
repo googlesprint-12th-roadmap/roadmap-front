@@ -46,9 +46,39 @@ const Level = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  * {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    box-sizing: border-box;
+  }
+  > * {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 `;
-const MainNode = styled.div``;
-const SubNode = styled.div``;
+const MainNode = styled.div`
+  width: 191px;
+  height: 68px;
+  padding: 100px;
+  background: rgba(255, 0, 92, 0.42);
+  box-shadow: 3px 6px 12px rgba(128, 13, 54, 0.42), inset 5px 4px 10px #ffe0eb,
+    inset -10px -5px 20px #ff5391;
+  border-radius: 30px;
+`;
+const SubNode = styled.div`
+  background: rgba(255, 99, 155, 0.42);
+  box-shadow: 3px 6px 12px rgba(184, 42, 93, 0.42), inset 5px 4px 10px #ffe1ec,
+    inset -10px -5px 20px #ff85b1;
+  border-radius: 30px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+`;
 const Subtree = styled.div`
   order: ${(props) => (props.direction === SUBTREE_DIRECTION.LEFT ? '0' : '2')};
 `;
