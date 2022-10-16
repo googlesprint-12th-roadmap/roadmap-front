@@ -3,6 +3,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { SwiperSlide } from 'swiper/react';
 import { titleState } from '../../atoms/createAtoms';
 import {
+  currentSelectViewState,
   depthState,
   emptyNodeCheckState,
   nodeListState,
@@ -10,6 +11,7 @@ import {
 import EmptyList from '../../components/make/EmptyList';
 import SelectList from '../../components/make/SelectList';
 import SwiperSection from '../../components/SwiperSection';
+import { useSaveRoadmap } from '../../hooks/useRoadmap';
 import {
   Container,
   DefaultText,
@@ -80,11 +82,17 @@ const data = [
 const Make = () => {
   const [nodeList, setNodeList] = useRecoilState(nodeListState);
   const [depthList, setDepthList] = useRecoilState(depthState);
+
+  const [currentSelect, setCurrentSelect] = useRecoilState(
+    currentSelectViewState,
+  );
+
   const [title, setTitle] = useRecoilState(titleState);
   const [width, setWidth] = useState(0);
 
   const emptyNode = useRecoilValue(emptyNodeCheckState);
   const spanRef = useRef();
+  const saveRoadmap = useSaveRoadmap();
 
   const handleChangeTitle = useCallback((e) => {
     setTitle(e.target.value);
@@ -98,6 +106,22 @@ const Make = () => {
   useEffect(() => {
     setWidth(spanRef.current.offsetWidth);
   }, [title]);
+
+  const handleSubmit = () => {
+    const context = {
+      name: title,
+      nodes: nodeList,
+      rootIdx: nodeList[0].idx,
+    };
+    console.log(context);
+    saveRoadmap.mutate(context, {
+      onSuccess: (d) => {
+        console.log(d);
+      },
+    });
+  };
+
+  console.log(nodeList);
 
   return (
     <Container>
@@ -135,6 +159,7 @@ const Make = () => {
           )}
         </SwiperSection>
       </MakeSection>
+      <button onClick={handleSubmit}>저장하기</button>
     </Container>
   );
 };
