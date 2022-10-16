@@ -1,7 +1,7 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useLogin } from '../hooks/useLogin';
 import { useRegister } from '../hooks/useRegister';
-
 export const TestPage = () => {
   const login = useLogin();
   const register = useRegister();
@@ -28,10 +28,11 @@ export const TestPage = () => {
         <button
           onClick={() =>
             login.mutate(
-              { id, password: pw },
+              { id, password },
               {
                 onSuccess: (d) => {
-                  console.log(d);
+                  axios.defaults.headers.post['header1'] =
+                    d.refreshToken ?? d.accessToken;
                 },
               },
             )
