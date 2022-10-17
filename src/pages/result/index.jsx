@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import RoadMap from '../../components/result/Roadmap';
 import { useDeleteRoadmap, useRoadMap } from '../../hooks/useRoadmap';
 import {
+  BackToEditButton,
   Content,
   Header,
   HeaderLink,
@@ -11,7 +12,6 @@ import {
   HeaderTitleSub,
   HeaderTitleWrapper,
   Wrapper,
-  BackToEditButton,
 } from './index.style';
 import text from './text.json';
 const Result = () => {
@@ -21,9 +21,7 @@ const Result = () => {
     <Wrapper>
       <Header>
         <HeaderTitleWrapper>
-          <HeaderTitleMain>
-            <span>{text['header.title.main']}</span>
-          </HeaderTitleMain>
+          <HeaderTitleContainer />
           <HeaderTitleSub>
             <span>{text['header.title.sub']}</span>
           </HeaderTitleSub>
@@ -42,6 +40,15 @@ const Result = () => {
         <RoadMap />
       </Content>
     </Wrapper>
+  );
+};
+
+const HeaderTitleContainer = () => {
+  const data = useRoadMap();
+  return (
+    <HeaderTitleMain>
+      <span>{data?.data?.name ?? text['header.title.main']}</span>
+    </HeaderTitleMain>
   );
 };
 
@@ -76,7 +83,6 @@ const DeleteLinkContainer = () => {
 };
 const EditLinkContainer = () => {
   const data = useRoadMap();
-  console.log(data);
   if (data?.data?.canEdit) {
     return (
       <HeaderLink onClick={() => alert(text['header.link.commingSoon'])}>
