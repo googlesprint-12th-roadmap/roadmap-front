@@ -11,10 +11,10 @@
 </h6>
 
 <h2 align="center">
-  <a>🎁 로드맵 툴 웹 어플리케이션</a>
+  <a>🎁 Roady.io</a>
 </h2>
 
-<p align="center">구글 스프린트 <b>12기</b> MVP - 로드맵 툴(가칭)</p>
+<p align="center">구글 스프린트 <b>12기</b> MVP - Roady.io</p>
 
 ## Contributors
 
