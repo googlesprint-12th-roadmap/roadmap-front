@@ -5,7 +5,9 @@ import React, {
   useLayoutEffect,
   useMemo,
 } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { nodeListState } from '../../atoms/makeListAtoms';
 import { useRoadMap } from '../../hooks/useRoadmap';
 import { getLinePositions, MemoizedLines as Lines } from './Lines';
 import renderNodes from './Nodes';
@@ -20,7 +22,7 @@ export default function RoadMap() {
   const renderedNodes = useRef();
   const [screenSize, setScreenSize] = useState(window.innerWidth);
   const { data } = useRoadMap();
-
+  const nodesFromEditing = useRecoilValue(nodeListState);
   const nodes = useMemo(
     () => renderNodes(tree, renderedNodes.current, 0),
     [tree, screenSize],
@@ -37,15 +39,18 @@ export default function RoadMap() {
       console.log('data:', data);
       renderedNodes.current = initializeNodeRefs(data.nodes);
       setTree(createTree(data.nodes, data.rootIdx));
+    } else if (nodesFromEditing.length > 0) {
+      renderedNodes.current = initializeNodeRefs(nodesFromEditing);
+      console.log('renderedNodes:', renderedNodes);
+      setTree(createTree(nodesFromEditing, nodesFromEditing[0].idx));
     } else
       fetch('/mock_data.json')
         .then((res) => res.json())
-        .then(
-          (data) => (
-            (renderedNodes.current = initializeNodeRefs(data)),
-            setTree(createTree(data, 0))
-          ),
-        );
+        .then((data) => {
+          renderedNodes.current = initializeNodeRefs(data);
+          console.log('renderedNodes:', renderedNodes);
+          setTree(createTree(data, 0));
+        });
   }, [data]);
 
   useLayoutEffect(() => {
@@ -57,7 +62,14 @@ export default function RoadMap() {
   useLayoutEffect(() => {
     tree && setLines(getLinePositions(tree, renderedNodes.current));
   }, [tree, screenSize]);
-  console.log('tree:', tree);
+  console.log(
+    'data from query',
+    data,
+    'from editing:',
+    nodesFromEditing,
+    'tree:',
+    tree,
+  );
 
   return (
     <Container>

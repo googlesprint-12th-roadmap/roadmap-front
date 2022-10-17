@@ -1,22 +1,24 @@
 export const createTree = (nodes, parentIdx) => {
-  const _nodes = [...nodes];
+  const _nodes = JSON.parse(JSON.stringify(nodes));
+  console.log('_nodes:', _nodes);
   _nodes.forEach((node) => {
-    node.parent &&
+    node.idx !== parentIdx &&
+      node.parent &&
       (node.parent = nodes.find((node) => node.idx === node.parent));
     node.children.length > 0 &&
       (node.children = node.children.map((childId) =>
-        nodes.find((node) => node.idx === childId),
+        _nodes.find((node) => node.idx === childId),
       ));
   });
   console.log(
     'created tree:',
-    nodes,
+    _nodes,
     'parentidx: ',
     parentIdx,
     'found:',
     _nodes.find((node) => node.idx === parentIdx),
   );
-  return nodes.find((node) => node.idx === parentIdx);
+  return _nodes.find((node) => node.idx === parentIdx);
 };
 
 export const initializeNodeRefs = (nodes) =>

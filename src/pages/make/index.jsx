@@ -9,6 +9,7 @@ import {
   nodeListState,
 } from '../../atoms/makeListAtoms';
 import EmptyList from '../../components/make/EmptyList';
+import NodeOption from '../../components/make/NodeOption';
 import SelectList from '../../components/make/SelectList';
 import SwiperSection from '../../components/SwiperSection';
 import { useSaveRoadmap } from '../../hooks/useRoadmap';
@@ -98,30 +99,30 @@ const Make = () => {
     setTitle(e.target.value);
   }, []);
 
-  useEffect(() => {
-    setDepthList([data.filter((item) => item.parent === 'root')]);
-    setNodeList([...data]);
-  }, []);
+  // useEffect(() => {
+  //   setDepthList([data.filter((item) => item.parent === 'root')]);
+  //   setNodeList([...data]);
+  // }, []);
 
   useEffect(() => {
     setWidth(spanRef.current.offsetWidth);
   }, [title]);
 
-  const handleSubmit = () => {
-    const context = {
-      name: title,
-      nodes: nodeList,
-      rootIdx: nodeList[0].idx,
-    };
-    console.log(context);
-    saveRoadmap.mutate(context, {
-      onSuccess: (d) => {
-        console.log(d);
-      },
-    });
-  };
+  // const handleSubmit = () => {
+  //   const context = {
+  //     name: title,
+  //     nodes: nodeList,
+  //     rootIdx: nodeList[0].idx,
+  //   };
+  //   console.log(context);
+  //   saveRoadmap.mutate(context, {
+  //     onSuccess: (d) => {
+  //       console.log(d);
+  //     },
+  //   });
+  // };
 
-  console.log(nodeList);
+  console.log('make', depthList, nodeList);
 
   return (
     <Container>
@@ -159,7 +160,8 @@ const Make = () => {
           )}
         </SwiperSection>
       </MakeSection>
-      <button onClick={handleSubmit}>저장하기</button>
+      <NodeOption />
+      {/* <button onClick={handleSubmit}>저장하기</button> */}
     </Container>
   );
 };

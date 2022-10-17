@@ -50,7 +50,9 @@ export const TitleWrap = styled.div`
 `;
 
 export const MakeSection = styled.section`
+  min-height: 45rem;
   margin-top: 2.4rem;
+  margin-bottom: 2.4rem;
   overflow: hidden;
   box-sizing: content-box;
   .swiper-button-disabled {

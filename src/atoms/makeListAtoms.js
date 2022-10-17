@@ -24,3 +24,8 @@ export const currentSelectViewState = atom({
   key: 'currentSelectViewState',
   default: 0,
 });
+
+export const currentSelectedIdState = atom({
+  key: 'currentSelectedIdState',
+  default: -1,
+});

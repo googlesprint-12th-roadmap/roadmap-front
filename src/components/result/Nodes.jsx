@@ -31,11 +31,9 @@ export default function renderNodes(head, renderedNodes, depth) {
           </MainNode>
         </Level>
         {head?.children?.length > 0 &&
-          renderNodes(
-            head.children.find((node) => node.type === NODE_TYPE.MAIN),
-            renderedNodes,
-            depth + 1,
-          )}
+          head.children
+            .filter((node) => node.type === NODE_TYPE.MAIN)
+            .map((node) => renderNodes(node, renderedNodes, depth + 1))}
       </>
     )
   );

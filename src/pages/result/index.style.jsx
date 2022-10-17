@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Button from '../../components/Button';
 
 export const Wrapper = styled.div`
   min-width: 600px;
@@ -11,14 +12,15 @@ export const Wrapper = styled.div`
 `;
 export const Header = styled.header`
   box-sizing: border-box;
-  width: 100%;
+  max-width: 700px;
   padding: 16px 16px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  position: relative;
 `;
 export const HeaderTitleWrapper = styled.div`
   width: 700px;
-
   box-sizing: border-box;
   display: flex;
   gap: 4px;
@@ -65,4 +67,26 @@ export const HeaderLink = styled.a`
   & + &::before {
     margin-left: 13px;
   }
+`;
+
+export const BackToEditButton = styled.button`
+  padding: 5px 15px 5px 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 10px;
+  width: 150px;
+  align-self: flex-end;
+  right: 0px;
+  bottom: 50px;
+  position: absolute;
+  font-size: 16px;
+  font-weight: 600;
+
+  background-color: #ffa4c5;
+  :hover {
+    background-color: #ff639b;
+  }
+  color: white;
+  cursor: pointer;
 `;
