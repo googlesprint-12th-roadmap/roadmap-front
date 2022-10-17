@@ -157,7 +157,7 @@ const NodeOption = () => {
     saveRoadmap.mutate(context, {
       onSuccess: (d) => {
         console.log(d);
-        navigate('/view/' + nodeList[0].idx);
+        navigate('/view/' + d.data.idx);
       },
     });
   };
