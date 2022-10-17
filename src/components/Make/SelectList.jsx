@@ -92,7 +92,6 @@ const SelectList = ({ data, depth }) => {
       ),
       newNode,
     ]);
-    console.log(newNode);
 
     let tempDepthList = _.cloneDeep(depthList);
 
