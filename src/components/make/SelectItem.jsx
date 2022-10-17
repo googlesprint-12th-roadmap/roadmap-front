@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 const SelectItem = ({ data, clickFunc, check, index }) => {
   return (
     <Container check={check} onClick={() => clickFunc(data.idx, index)}>
-      <Marked></Marked>
+      <Marked checkType={data.type}></Marked>
       <Name>{data.title}</Name>
     </Container>
   );
@@ -55,9 +55,13 @@ const Marked = styled.div`
   background-color: #ffa4c5;
   border-radius: 50%;
   margin-right: 1.4rem;
-`;
 
-const RotateCheckMarked = styled.div``;
+  ${(props) =>
+    props.checkType === 'MAIN' &&
+    css`
+      background-color: #ff639b;
+    `}
+`;
 
 const Name = styled.span`
   font-size: 2.4rem;
