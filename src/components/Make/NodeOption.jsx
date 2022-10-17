@@ -212,7 +212,14 @@ const NodeOption = () => {
         <Title>Options</Title>
         <ContentWrapper>
           <Button onClick={handleNodeDelete}>선택한 노드 삭제</Button>
-          <Button>미리보기</Button>
+          <Button
+            onClick={() => {
+              navigate('/view');
+              console.log('미리보기 클릭');
+            }}
+          >
+            미리보기
+          </Button>
           <Button onClick={handleSubmit}>로드맵 저장</Button>
         </ContentWrapper>
       </Options>

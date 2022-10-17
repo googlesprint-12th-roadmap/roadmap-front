@@ -99,10 +99,10 @@ const Make = () => {
     setTitle(e.target.value);
   }, []);
 
-  useEffect(() => {
-    setDepthList([data.filter((item) => item.parent === 'root')]);
-    setNodeList([...data]);
-  }, []);
+  // useEffect(() => {
+  //   setDepthList([data.filter((item) => item.parent === 'root')]);
+  //   setNodeList([...data]);
+  // }, []);
 
   useEffect(() => {
     setWidth(spanRef.current.offsetWidth);
@@ -122,7 +122,7 @@ const Make = () => {
   //   });
   // };
 
-  console.log(nodeList);
+  console.log('make', depthList, nodeList);
 
   return (
     <Container>

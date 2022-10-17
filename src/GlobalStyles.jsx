@@ -16,6 +16,9 @@ const GlobalStyles = createGlobalStyle`
         overflow-x: hidden;
     };
 
+    * {
+    font-family: 'Inter';
+    }
     ::-webkit-scrollbar {
       width: 5px;
       z-index: 9;
