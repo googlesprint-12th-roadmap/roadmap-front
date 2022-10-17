@@ -8,7 +8,7 @@ import {
   nodeListState,
 } from '../../atoms/makeListAtoms';
 import _ from 'lodash';
-import { AddNodeButton, AddNodeForm, AddNodeWrap } from './make.styles';
+import { AddNodeButton, AddNodeForm, AddNodeWrap } from './Make.styles';
 
 const EmptyList = () => {
   const [nodeList, setNodeList] = useRecoilState(nodeListState);
