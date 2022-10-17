@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://7c5a-219-255-199-146.jp.ngrok.io',
+        target: 'https://047a-219-255-199-146.jp.ngrok.io/',
         changeOrigin: true,
         secure: false,
         ws: true,
