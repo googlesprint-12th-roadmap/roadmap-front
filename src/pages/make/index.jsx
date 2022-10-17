@@ -12,7 +12,6 @@ import EmptyList from '../../components/make/EmptyList';
 import NodeOption from '../../components/make/NodeOption';
 import SelectList from '../../components/make/SelectList';
 import SwiperSection from '../../components/SwiperSection';
-import { useSaveRoadmap } from '../../hooks/useRoadmap';
 import {
   Container,
   DefaultText,
@@ -22,63 +21,6 @@ import {
   Title,
   TitleWrap,
 } from './index.styles';
-
-const data = [
-  // {
-  //   id: 1,
-  //   url: '',
-  //   desc: '',
-  //   type: 'main',
-  //   title: 'Frontend',
-  //   children: [2, 3],
-  //   parent: 'root',
-  // },
-  // {
-  //   id: 2,
-  //   url: '',
-  //   desc: '',
-  //   type: 'main',
-  //   title: 'SPA',
-  //   children: [6],
-  //   parent: 1,
-  // },
-  // {
-  //   id: 3,
-  //   url: '',
-  //   desc: '',
-  //   type: 'main',
-  //   title: 'Skill',
-  //   children: [4, 5],
-  //   parent: 1,
-  // },
-  // {
-  //   id: 4,
-  //   url: '',
-  //   desc: '',
-  //   type: 'sub',
-  //   title: 'CSS',
-  //   children: [],
-  //   parent: 3,
-  // },
-  // {
-  //   id: 5,
-  //   url: '',
-  //   desc: '',
-  //   type: 'main',
-  //   title: 'HTML',
-  //   children: [],
-  //   parent: 3,
-  // },
-  // {
-  //   id: 6,
-  //   url: '',
-  //   desc: '',
-  //   type: 'main',
-  //   title: 'Javascript',
-  //   children: [],
-  //   parent: 2,
-  // },
-];
 
 const Make = () => {
   const [nodeList, setNodeList] = useRecoilState(nodeListState);
@@ -92,37 +34,15 @@ const Make = () => {
   const [width, setWidth] = useState(0);
 
   const emptyNode = useRecoilValue(emptyNodeCheckState);
-  const spanRef = useRef();
-  const saveRoadmap = useSaveRoadmap();
+  const spanRef = useRef(null);
 
   const handleChangeTitle = useCallback((e) => {
     setTitle(e.target.value);
   }, []);
 
-  // useEffect(() => {
-  //   setDepthList([data.filter((item) => item.parent === 'root')]);
-  //   setNodeList([...data]);
-  // }, []);
-
   useEffect(() => {
     setWidth(spanRef.current.offsetWidth);
   }, [title]);
-
-  // const handleSubmit = () => {
-  //   const context = {
-  //     name: title,
-  //     nodes: nodeList,
-  //     rootIdx: nodeList[0].idx,
-  //   };
-  //   console.log(context);
-  //   saveRoadmap.mutate(context, {
-  //     onSuccess: (d) => {
-  //       console.log(d);
-  //     },
-  //   });
-  // };
-
-  console.log('make', depthList, nodeList);
 
   return (
     <Container>
