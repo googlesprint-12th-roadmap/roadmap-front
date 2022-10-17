@@ -6,6 +6,8 @@ import {
   nodeListState,
   currentSelectedIdState,
 } from '../../atoms/makeListAtoms';
+import { titleState } from '../../atoms/createAtoms';
+import { useSaveRoadmap } from '../../hooks/useRoadmap';
 
 const NodeOption = () => {
   const [currentTitle, setCurrentTitle] = useState('');
@@ -18,6 +20,9 @@ const NodeOption = () => {
   const [currentSelectedId, setCurrentSelectedId] = useRecoilState(
     currentSelectedIdState,
   );
+  const [title, setTitle] = useRecoilState(titleState);
+
+  const saveRoadmap = useSaveRoadmap();
 
   useEffect(() => {
     if (currentSelectedId === -1) {
@@ -132,9 +137,20 @@ const NodeOption = () => {
     setDepthList(newDepthList);
   };
 
-  // TODO
   // 로드맵 저장 기능
-  const handleRodeMapSubmit = () => {};
+  const handleRoadMapSubmit = () => {
+    const context = {
+      name: title,
+      nodes: nodeList,
+      rootIdx: nodeList[0].idx,
+    };
+    console.log(context);
+    saveRoadmap.mutate(context, {
+      onSuccess: (d) => {
+        console.log(d);
+      },
+    });
+  };
 
   return (
     <Container>
@@ -187,7 +203,7 @@ const NodeOption = () => {
         <ContentWrapper>
           <Button onClick={handleNodeDelete}>선택한 노드 삭제</Button>
           <Button>미리보기</Button>
-          <Button>로드맵 저장</Button>
+          <Button onClick={handleRoadMapSubmit}>로드맵 저장</Button>
         </ContentWrapper>
       </Options>
     </Container>
