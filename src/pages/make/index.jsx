@@ -108,19 +108,19 @@ const Make = () => {
     setWidth(spanRef.current.offsetWidth);
   }, [title]);
 
-  const handleSubmit = () => {
-    const context = {
-      name: title,
-      nodes: nodeList,
-      rootIdx: nodeList[0].idx,
-    };
-    console.log(context);
-    saveRoadmap.mutate(context, {
-      onSuccess: (d) => {
-        console.log(d);
-      },
-    });
-  };
+  // const handleSubmit = () => {
+  //   const context = {
+  //     name: title,
+  //     nodes: nodeList,
+  //     rootIdx: nodeList[0].idx,
+  //   };
+  //   console.log(context);
+  //   saveRoadmap.mutate(context, {
+  //     onSuccess: (d) => {
+  //       console.log(d);
+  //     },
+  //   });
+  // };
 
   console.log(nodeList);
 
@@ -161,7 +161,7 @@ const Make = () => {
         </SwiperSection>
       </MakeSection>
       <NodeOption />
-      <button onClick={handleSubmit}>저장하기</button>
+      {/* <button onClick={handleSubmit}>저장하기</button> */}
     </Container>
   );
 };
