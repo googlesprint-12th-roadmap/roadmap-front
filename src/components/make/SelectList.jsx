@@ -11,7 +11,7 @@ import {
 } from '../../atoms/makeListAtoms';
 import SelectItem from './SelectItem';
 import _ from 'lodash';
-import { AddNodeButton, AddNodeForm, AddNodeWrap } from './make.styles';
+import { AddNodeButton, AddNodeForm, AddNodeWrap } from './Make.styles';
 
 const SelectList = ({ data, depth }) => {
   const [isShown, setIsShown] = useState(false);
