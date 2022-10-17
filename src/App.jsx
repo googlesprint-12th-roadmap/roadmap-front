@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import MobileBan from './components/MobileBan';
 import Navbar from './components/Navbar';
 import GlobalStyles from './GlobalStyles';
 import Home from './pages/home';
@@ -21,6 +22,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <RecoilRoot>
           <React.Suspense fallback={<></>}>
+            <MobileBan />
             <Navbar></Navbar>
             <Routes>
               <Route path="/" element={<Home />}></Route>
@@ -29,7 +31,6 @@ function App() {
               <Route path="/login" element={<Login />}></Route>
               <Route path="/register" element={<Register />}></Route>
               <Route path="/view/:roadmapId" element={<Result />}></Route>
-
               <Route path="/test" element={<TestPage />}></Route>
               <Route path="/test/:roadmapId" element={<TestResult />}></Route>
             </Routes>
