@@ -96,36 +96,28 @@ const NodeOption = () => {
     if (SelectedNode.idx === SelectedNode.parent) {
       return alert('루트 노드는 삭제할 수 없습니다.');
     }
+    if (
+      window.confirm(
+        '선택한 노드의 하위 노드까지 전부 삭제됩니다. 진행 하시겠습니까?',
+      )
+    ) {
+      // 연쇄적인 children을 계속 탐색하는 로직
+      const toBeDeleted = [];
+      let queue = [];
+      queue.push(currentSelectedId);
 
-    // 연쇄적인 children을 계속 탐색하는 로직
-    const toBeDeleted = [];
-    let queue = [];
-    queue.push(currentSelectedId);
+      while (queue.length) {
+        let currentId = queue.shift();
+        let currentNode = nodeList.find((item) => item.idx === currentId);
+        queue = [...queue, ...currentNode.children];
+        toBeDeleted.push(currentId);
+      }
 
-    while (queue.length) {
-      let currentId = queue.shift();
-      let currentNode = nodeList.find((item) => item.idx === currentId);
-      queue = [...queue, ...currentNode.children];
-      toBeDeleted.push(currentId);
-    }
+      // 부모 노드의 children 배열 수정
+      const parentId = SelectedNode.parent;
 
-    // 부모 노드의 children 배열 수정
-    const parentId = SelectedNode.parent;
-
-    const newNodeList = nodeList
-      .filter((item) => !toBeDeleted.includes(item.idx))
-      .map((x) => {
-        if (x.idx === parentId) {
-          const newChildren = x.children.filter((y) => y !== currentSelectedId);
-          return { ...x, children: newChildren };
-        }
-        return x;
-      });
-
-    setNodeList(newNodeList);
-    const newDepthList = depthList.map((item1) =>
-      item1
-        .filter((item2) => !toBeDeleted.includes(item2.idx))
+      const newNodeList = nodeList
+        .filter((item) => !toBeDeleted.includes(item.idx))
         .map((x) => {
           if (x.idx === parentId) {
             const newChildren = x.children.filter(
@@ -134,9 +126,24 @@ const NodeOption = () => {
             return { ...x, children: newChildren };
           }
           return x;
-        }),
-    );
-    setDepthList(newDepthList);
+        });
+
+      setNodeList(newNodeList);
+      const newDepthList = depthList.map((item1) =>
+        item1
+          .filter((item2) => !toBeDeleted.includes(item2.idx))
+          .map((x) => {
+            if (x.idx === parentId) {
+              const newChildren = x.children.filter(
+                (y) => y !== currentSelectedId,
+              );
+              return { ...x, children: newChildren };
+            }
+            return x;
+          }),
+      );
+      setDepthList(newDepthList);
+    }
   };
 
   // 로드맵 저장 기능
