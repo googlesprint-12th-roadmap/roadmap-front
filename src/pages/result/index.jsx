@@ -16,6 +16,7 @@ import {
 import text from './text.json';
 const Result = () => {
   const navigate = useNavigate();
+  const { roadmapId } = useParams();
   return (
     <Wrapper>
       <Header>
@@ -26,9 +27,11 @@ const Result = () => {
           <HeaderTitleSub>
             <span>{text['header.title.sub']}</span>
           </HeaderTitleSub>
-          <BackToEditButton onClick={() => navigate('/make')}>
-            계속 편집하기
-          </BackToEditButton>
+          {!roadmapId && (
+            <BackToEditButton onClick={() => navigate('/make')}>
+              계속 편집하기
+            </BackToEditButton>
+          )}
         </HeaderTitleWrapper>
         <HeaderLinkWrapper>
           <DeleteLinkContainer />
