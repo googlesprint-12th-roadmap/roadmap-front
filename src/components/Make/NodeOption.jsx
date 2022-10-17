@@ -8,8 +8,10 @@ import {
 } from '../../atoms/makeListAtoms';
 import { titleState } from '../../atoms/createAtoms';
 import { useSaveRoadmap } from '../../hooks/useRoadmap';
+import { useNavigate } from 'react-router-dom';
 
 const NodeOption = () => {
+  const navigate = useNavigate();
   const [currentTitle, setCurrentTitle] = useState('');
   const [currentType, setCurrentType] = useState('');
   const [currentUrl, setCurrentUrl] = useState('');
@@ -138,7 +140,7 @@ const NodeOption = () => {
   };
 
   // 로드맵 저장 기능
-  const handleRoadMapSubmit = () => {
+  const handleSubmit = () => {
     const context = {
       name: title,
       nodes: nodeList,
@@ -148,6 +150,7 @@ const NodeOption = () => {
     saveRoadmap.mutate(context, {
       onSuccess: (d) => {
         console.log(d);
+        navigate('/view/' + nodeList[0].idx);
       },
     });
   };
@@ -203,7 +206,7 @@ const NodeOption = () => {
         <ContentWrapper>
           <Button onClick={handleNodeDelete}>선택한 노드 삭제</Button>
           <Button>미리보기</Button>
-          <Button onClick={handleRoadMapSubmit}>로드맵 저장</Button>
+          <Button onClick={handleSubmit}>로드맵 저장</Button>
         </ContentWrapper>
       </Options>
     </Container>
