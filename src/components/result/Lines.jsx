@@ -10,24 +10,26 @@ export const getLinePositions = (head, renderedNodes) => {
   if (!head || head.children.length === 0) return null;
   const renderedHead = renderedNodes[head.idx];
   const lines = head.children.map((child) =>
-    child.type === NODE_TYPE.MAIN
-      ? {
-          type: child.type,
-          startPos: renderedHead.midpointBottom,
-          endPos: renderedNodes[child.idx].midpointTop,
-        }
-      : child.type === NODE_TYPE.SUB &&
-        renderedHead.subtreeDirection === SUBTREE_DIRECTION.LEFT
-      ? {
-          type: child.type,
-          startPos: renderedHead.midpointLeft,
-          endPos: renderedNodes[child.idx].midpointRight,
-        }
-      : {
-          type: child.type,
-          startPos: renderedHead.midpointRight,
-          endPos: renderedNodes[child.idx].midpointLeft,
-        },
+    renderedHead.ref
+      ? child.type === NODE_TYPE.MAIN
+        ? {
+            type: child.type,
+            startPos: renderedHead.midpointBottom,
+            endPos: renderedNodes[child.idx].midpointTop,
+          }
+        : child.type === NODE_TYPE.SUB &&
+          renderedHead.subtreeDirection === SUBTREE_DIRECTION.LEFT
+        ? {
+            type: child.type,
+            startPos: renderedHead.midpointLeft,
+            endPos: renderedNodes[child.idx].midpointRight,
+          }
+        : {
+            type: child.type,
+            startPos: renderedHead.midpointRight,
+            endPos: renderedNodes[child.idx].midpointLeft,
+          }
+      : null,
   );
   return lines.concat(
     head.children.reduce((prev, child) => {
@@ -54,14 +56,19 @@ const Lines = ({ lines }) => {
   return (
     <SVG>
       {lines &&
-        lines.map((line, index) => (
-          <Line
-            key={index}
-            type={line.type}
-            startPos={line.startPos}
-            endPos={line.endPos}
-          />
-        ))}
+        lines.map(
+          (line, index) =>
+            line.type &&
+            line.startPos &&
+            line.endPos && (
+              <Line
+                key={index}
+                type={line.type}
+                startPos={line.startPos}
+                endPos={line.endPos}
+              />
+            ),
+        )}
     </SVG>
   );
 };

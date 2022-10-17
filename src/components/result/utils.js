@@ -39,22 +39,24 @@ export const getRenderedPositions = (tree, renderedNodes) =>
   renderedNodes &&
   Object.keys(renderedNodes).forEach((id) => {
     const node = renderedNodes[id];
-    node.offsetTop = node.ref.offsetTop;
-    node.offsetLeft = node.ref.offsetLeft;
-    node.midpointTop = {
-      x: node.ref.offsetLeft + node.ref.clientWidth / 2,
-      y: node.ref.offsetTop,
-    };
-    node.midpointBottom = {
-      x: node.ref.offsetLeft + node.ref.clientWidth / 2,
-      y: node.ref.offsetTop + node.ref.clientHeight,
-    };
-    node.midpointLeft = {
-      x: node.ref.offsetLeft,
-      y: node.ref.offsetTop + node.ref.clientHeight / 2,
-    };
-    node.midpointRight = {
-      x: node.ref.offsetLeft + node.ref.clientWidth,
-      y: node.ref.offsetTop + node.ref.clientHeight / 2,
-    };
+    if (node.ref) {
+      node.offsetTop = node.ref.offsetTop;
+      node.offsetLeft = node.ref.offsetLeft;
+      node.midpointTop = {
+        x: node.ref.offsetLeft + node.ref.clientWidth / 2,
+        y: node.ref.offsetTop,
+      };
+      node.midpointBottom = {
+        x: node.ref.offsetLeft + node.ref.clientWidth / 2,
+        y: node.ref.offsetTop + node.ref.clientHeight,
+      };
+      node.midpointLeft = {
+        x: node.ref.offsetLeft,
+        y: node.ref.offsetTop + node.ref.clientHeight / 2,
+      };
+      node.midpointRight = {
+        x: node.ref.offsetLeft + node.ref.clientWidth,
+        y: node.ref.offsetTop + node.ref.clientHeight / 2,
+      };
+    }
   });
