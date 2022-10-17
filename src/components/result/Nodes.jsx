@@ -4,7 +4,7 @@ import { NODE_TYPE, SUBTREE_DIRECTION } from './Roadmap';
 
 export default function renderNodes(head, renderedNodes, depth) {
   // console.log('rendering nodes...', head, renderedNodes);
-  if (!head || !renderedNodes) return;
+  if (!head || !renderedNodes) return <></>;
   const subtreeDirection = !!(depth % 2);
   renderedNodes[head.idx].subtreeDirection = subtreeDirection;
   return (

@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { useRoadMap } from '../../hooks/useRoadmap';
 import { getLinePositions, MemoizedLines as Lines } from './Lines';
 import renderNodes from './Nodes';
-import { createTree, getRenderedPositions } from './utils';
+import { createTree, getRenderedPositions, initializeNodeRefs } from './utils';
 
 export const SUBTREE_DIRECTION = { LEFT: true, RIGHT: false };
 export const NODE_TYPE = { MAIN: 'MAIN', SUB: 'SUB' };
@@ -35,19 +35,17 @@ export default function RoadMap() {
   useLayoutEffect(() => {
     if (data && data.nodes) {
       console.log('data:', data);
-      renderedNodes.current = data.nodes.reduce(
-        (prev, curr) => ({
-          ...prev,
-          [curr.idx]: {
-            ref: null,
-            offsetTop: 0,
-            offsetLeft: 0,
-          },
-        }),
-        {},
-      );
+      renderedNodes.current = initializeNodeRefs(data.nodes);
       setTree(createTree(data.nodes, data.rootIdx));
-    }
+    } else
+      fetch('/mock_data.json')
+        .then((res) => res.json())
+        .then(
+          (data) => (
+            (renderedNodes.current = initializeNodeRefs(data)),
+            setTree(createTree(data, 0))
+          ),
+        );
   }, [data]);
 
   useLayoutEffect(() => {
@@ -60,6 +58,7 @@ export default function RoadMap() {
     tree && setLines(getLinePositions(tree, renderedNodes.current));
   }, [tree, screenSize]);
   console.log('tree:', tree);
+
   return (
     <Container>
       <Canvas>

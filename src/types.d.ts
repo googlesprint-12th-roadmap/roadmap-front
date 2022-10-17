@@ -15,8 +15,9 @@ export interface Data {
 }
 
 interface renderedNodes {
-  [id: number]: {
+  [idx: number]: {
     ref: null;
+    subtreeDirection: boolean;
     offsetTop: 0;
     offsetLeft: 0;
     offsetTop: number;
@@ -28,4 +29,10 @@ interface renderedNodes {
     midpointLeft: { x: number; y: number };
     midpointRight: { x: number; y: number };
   };
+}
+
+interface line {
+  type: 'MAIN' | 'SUB';
+  startPos: { x: number; y: number };
+  endPos: { x: number; y: number };
 }

@@ -1,6 +1,6 @@
 export const createTree = (nodes, parentIdx) => {
   const _nodes = [...nodes];
-  _nodes.map((node) => {
+  _nodes.forEach((node) => {
     node.parent &&
       (node.parent = nodes.find((node) => node.idx === node.parent));
     node.children.length > 0 &&
@@ -18,6 +18,19 @@ export const createTree = (nodes, parentIdx) => {
   );
   return nodes.find((node) => node.idx === parentIdx);
 };
+
+export const initializeNodeRefs = (nodes) =>
+  nodes.reduce(
+    (prev, curr) => ({
+      ...prev,
+      [curr.idx]: {
+        ref: null,
+        offsetTop: 0,
+        offsetLeft: 0,
+      },
+    }),
+    {},
+  );
 
 export const getRenderedPositions = (tree, renderedNodes) =>
   tree &&
