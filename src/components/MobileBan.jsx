@@ -6,7 +6,7 @@ const MobileBan = () => {
     <Container>
       <TextWrapper>
         <Text>
-          모바일 버전은 <br /> 아직 준비중입니다!
+          모바일 버전 <br /> 준비 중입니다🥲
         </Text>
         <Logo>Roady.io</Logo>
       </TextWrapper>
