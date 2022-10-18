@@ -58,9 +58,9 @@ const Lines = ({ lines }) => {
       {lines &&
         lines.map(
           (line, index) =>
-            line.type &&
-            line.startPos &&
-            line.endPos && (
+            line?.type &&
+            line?.startPos &&
+            line?.endPos && (
               <Line
                 key={index}
                 type={line.type}
@@ -72,6 +72,7 @@ const Lines = ({ lines }) => {
     </SVG>
   );
 };
+
 export const MemoizedLines = React.memo(Lines);
 
 const SVG = styled.svg`

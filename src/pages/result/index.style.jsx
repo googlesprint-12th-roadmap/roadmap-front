@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import Button from '../../components/Button';
 
 export const Wrapper = styled.div`
-  min-width: 600px;
+  max-width: 1000px;
+  min-width: 800px;
   margin: 50px 0px;
   font-family: 'Inter';
   font-style: normal;
@@ -12,7 +13,7 @@ export const Wrapper = styled.div`
 `;
 export const Header = styled.header`
   box-sizing: border-box;
-  max-width: 700px;
+  width: 100%;
   padding: 16px 16px;
   display: flex;
   flex-direction: column;
@@ -20,7 +21,7 @@ export const Header = styled.header`
   position: relative;
 `;
 export const HeaderTitleWrapper = styled.div`
-  width: 700px;
+  width: 100%;
   box-sizing: border-box;
   display: flex;
   gap: 4px;
@@ -77,7 +78,7 @@ export const BackToEditButton = styled.button`
   border-radius: 10px;
   width: 150px;
   align-self: flex-end;
-  right: 0px;
+  right: 16px;
   bottom: 50px;
   position: absolute;
   font-size: 16px;
