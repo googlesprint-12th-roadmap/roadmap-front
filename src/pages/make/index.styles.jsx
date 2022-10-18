@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.main`
   margin-left: 5rem;
+  min-width: 1120px;
 `;
 
 export const Header = styled.header`

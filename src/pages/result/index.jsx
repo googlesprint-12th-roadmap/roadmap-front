@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { nodeListState } from '../../atoms/makeListAtoms';
 import RoadMap from '../../components/result/Roadmap';
 import { useDeleteRoadmap, useRoadMap } from '../../hooks/useRoadmap';
 import {
@@ -17,6 +19,8 @@ import text from './text.json';
 const Result = () => {
   const navigate = useNavigate();
   const { roadmapId } = useParams();
+  const nodesFromEditing = useRecoilValue(nodeListState);
+
   return (
     <Wrapper>
       <Header>
@@ -25,7 +29,7 @@ const Result = () => {
           <HeaderTitleSub>
             <span>{text['header.title.sub']}</span>
           </HeaderTitleSub>
-          {!roadmapId && (
+          {!roadmapId && nodesFromEditing.length > 0 && (
             <BackToEditButton onClick={() => navigate('/make')}>
               계속 편집하기
             </BackToEditButton>

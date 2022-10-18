@@ -13,7 +13,7 @@ import { getLinePositions, MemoizedLines as Lines } from './Lines';
 import renderNodes from './Nodes';
 import { createTree, getRenderedPositions, initializeNodeRefs } from './utils';
 
-export const SUBTREE_DIRECTION = { LEFT: true, RIGHT: false };
+export const SUBTREE_DIRECTION = { LEFT: false, RIGHT: true };
 export const NODE_TYPE = { MAIN: 'MAIN', SUB: 'SUB' };
 
 export default function RoadMap() {
@@ -23,8 +23,9 @@ export default function RoadMap() {
   const [screenSize, setScreenSize] = useState(window.innerWidth);
   const { data } = useRoadMap();
   const nodesFromEditing = useRecoilValue(nodeListState);
+
   const nodes = useMemo(
-    () => renderNodes(tree, renderedNodes.current, 0),
+    () => renderNodes(tree, renderedNodes.current),
     [tree, screenSize],
   );
 
@@ -36,19 +37,20 @@ export default function RoadMap() {
 
   useLayoutEffect(() => {
     if (data && data.nodes) {
-      console.log('data:', data);
+      // console.log('data:', data);
       renderedNodes.current = initializeNodeRefs(data.nodes);
       setTree(createTree(data.nodes, data.rootIdx));
     } else if (nodesFromEditing.length > 0) {
       renderedNodes.current = initializeNodeRefs(nodesFromEditing);
-      console.log('renderedNodes:', renderedNodes);
+      // console.log('renderedNodes:', renderedNodes);
       setTree(createTree(nodesFromEditing, nodesFromEditing[0].idx));
     } else
       fetch('/mock_data.json')
         .then((res) => res.json())
         .then((data) => {
           renderedNodes.current = initializeNodeRefs(data);
-          console.log('renderedNodes:', renderedNodes);
+          // console.log('renderedNodes:', renderedNodes);
+          // console.log('mock data loaded:', data);
           setTree(createTree(data, 0));
         });
   }, [data]);
@@ -62,14 +64,15 @@ export default function RoadMap() {
   useLayoutEffect(() => {
     tree && setLines(getLinePositions(tree, renderedNodes.current));
   }, [tree, screenSize]);
-  console.log(
-    'data from query',
-    data,
-    'from editing:',
-    nodesFromEditing,
-    'tree:',
-    tree,
-  );
+
+  // console.log(
+  //   'data from query',
+  //   data,
+  //   'from editing:',
+  //   nodesFromEditing,
+  //   'tree:',
+  //   tree,
+  // );
 
   return (
     <Container>
@@ -87,6 +90,6 @@ const Container = styled.div`
 `;
 const Canvas = styled.div`
   position: relative;
-  max-width: 1000px;
-  min-width: 720px;
+  width: 100%;
+  justify-content: center;
 `;
